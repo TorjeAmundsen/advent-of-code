@@ -6,6 +6,7 @@
 
 static void readFileToVectors(const char* filename, std::vector<int>& firstHalf, std::vector<int>& secondHalf) {
     firstHalf.clear();
+    secondHalf.clear();
     std::ifstream file(filename);
     std::string line;
     while (getline(file, line)) {
