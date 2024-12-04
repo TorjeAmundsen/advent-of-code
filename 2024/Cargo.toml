@@ -1,0 +1,42 @@
+[package]
+name = "twenty24"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "day1"
+path = "1/day1.rs"
+
+[[bin]]
+name = "day2"
+path = "2/day2.rs"
+
+[[bin]]
+name = "day3"
+path = "3/day3.rs"
+
+[[bin]]
+name = "day4"
+path = "4/day4.rs"
+
+[[bin]]
+name = "day5"
+path = "5/day5.rs"
+
+[[bin]]
+name = "day6"
+path = "6/day6.rs"
+
+[[bin]]
+name = "day7"
+path = "7/day7.rs"
+
+[[bin]]
+name = "day8"
+path = "8/day8.rs"
+
+[[bin]]
+name = "day9"
+path = "9/day9.rs"
+
+[dependencies]

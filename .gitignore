@@ -2,3 +2,4 @@
 *.txt
 *.pdb
 .vscode/
+**/target/
