@@ -31,22 +31,22 @@ static void readFileToVector(const char* filename, std::vector<std::vector<int>>
 
 int isVectorSafe(std::vector<int> vector) {
     int lastNum = vector[0];
-        int lastDirection = (vector[0] - vector[1]) > 0;
-        int safe = 1;
+    int lastDirection = (vector[0] - vector[1]) > 0;
+    int safe = 1;
 
-        for (int i = 1; i < vector.size(); ++i) {
-            int direction = (lastNum - vector[i]) > 0;
-            int difference = abs(lastNum - vector[i]);
+    for (int i = 1; i < vector.size(); ++i) {
+        int direction = (lastNum - vector[i]) > 0;
+        int difference = abs(lastNum - vector[i]);
 
-            if (difference == 0 || difference > 3 || direction != lastDirection) {
-                safe = 0;
-                break;
-            }
-
-            lastNum = vector[i];
+        if (difference == 0 || difference > 3 || direction != lastDirection) {
+            safe = 0;
+            break;
         }
 
-        return safe;
+        lastNum = vector[i];
+    }
+
+    return safe;
 }
 
 int solvePart1(std::vector<std::vector<int>>& matrix) {
