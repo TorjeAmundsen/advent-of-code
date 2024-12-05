@@ -4,6 +4,8 @@
 #include <fstream>
 #include <unordered_map>
 
+#define INPUT_PATH "inputs/1.txt"
+
 static void readFileToVectors(const char* filename, std::vector<int>& firstHalf, std::vector<int>& secondHalf) {
     firstHalf.clear();
     secondHalf.clear();
@@ -73,9 +75,6 @@ static void mergeSort(std::vector<int>& input, int left, int right) {
 }
 
 int solvePart1(std::vector<int>& leftVector, std::vector<int>& rightVector) {
-    mergeSort(leftVector, 0, leftVector.size() - 1);
-    mergeSort(rightVector, 0, rightVector.size() - 1);
-
     int totalDistance = 0;
     for (int i = 0; i < leftVector.size(); ++i) {
         totalDistance += abs( leftVector[i] - rightVector[i] );
@@ -118,7 +117,10 @@ int main() {
     std::vector<int> leftHalf;
     std::vector<int> rightHalf;
 
-    readFileToVectors("input.txt", leftHalf, rightHalf);
+    readFileToVectors(INPUT_PATH, leftHalf, rightHalf);
+
+    mergeSort(leftHalf, 0, leftHalf.size() - 1);
+    mergeSort(rightHalf, 0, rightHalf.size() - 1);
     
     int part1Solution = solvePart1(leftHalf, rightHalf);
 

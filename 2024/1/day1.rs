@@ -3,11 +3,13 @@ use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
 
+const INPUT_PATH: &str = "inputs/1.txt";
+
 fn main() {
     let mut left_vec: Vec<i32> = Vec::new();
     let mut right_vec: Vec<i32> = Vec::new();
 
-    lines_to_i32_vectors(&mut left_vec, &mut right_vec);
+    lines_to_i32_vectors(&mut left_vec, &mut right_vec, INPUT_PATH);
 
     let left_vec = merge_sort(&mut left_vec);
     let right_vec = merge_sort(&mut right_vec);
@@ -95,8 +97,8 @@ fn merge(left_vec: &Vec<i32>, right_vec: &Vec<i32>) -> Vec<i32> {
     merged_vec
 }
 
-fn lines_to_i32_vectors(left_vec: &mut Vec<i32>, right_vec: &mut Vec<i32>) {
-    if let Ok(lines) = read_lines("./input.txt") {
+fn lines_to_i32_vectors(left_vec: &mut Vec<i32>, right_vec: &mut Vec<i32>, path: &str) {
+    if let Ok(lines) = read_lines(path) {
         for line in lines.flatten() {
             let left_num = &line[0..5];
             let right_num = &line[8..13];
