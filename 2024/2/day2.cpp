@@ -4,6 +4,8 @@
 #include <sstream>
 #include <fstream>
 
+#define INPUT_PATH "inputs/2.txt"
+
 static void readFileToVector(const char* filename, std::vector<std::vector<int>>& matrix) {
     for (auto vector : matrix) {
         vector.clear();
@@ -81,7 +83,7 @@ int solvePart2(std::vector<std::vector<int>>& matrix) {
 
 int main() {
     std::vector<std::vector<int>> matrix;
-    readFileToVector("input.txt", matrix);
+    readFileToVector(INPUT_PATH, matrix);
 
     int part1Solution = solvePart1(matrix);
 
