@@ -78,6 +78,7 @@ int solvePart1(std::vector<std::vector<CubeSet>>& matrix) {
 
     for (int i = 0; i < matrix.size(); ++i) {
         int possible = 1;
+        
         for (auto set : matrix[i]) {
             if (set.color == 'r' && set.count > 12) {
                 possible = 0;
