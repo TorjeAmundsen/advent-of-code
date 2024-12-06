@@ -72,13 +72,12 @@ void readFile(const char* filename, std::vector<std::vector<CubeSet>>& matrix) {
     }
 }
 
-// 12 red cubes, 13 green cubes, and 14 blue cubes
 int solvePart1(std::vector<std::vector<CubeSet>>& matrix) {
     int sumOfIds = 0;
 
     for (int i = 0; i < matrix.size(); ++i) {
         int possible = 1;
-        
+
         for (auto set : matrix[i]) {
             if (set.color == 'r' && set.count > 12) {
                 possible = 0;
