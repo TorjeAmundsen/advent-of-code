@@ -11,6 +11,8 @@ typedef struct {
     int count;
 } CubeSet;
 
+typedef std::vector<std::vector<CubeSet>> ParsedInput;
+
 void printVector(std::vector<std::string>& vector) {
     for (auto e : vector) {
         std::cout << e;
@@ -45,7 +47,7 @@ int getCubeSetsFromHand(std::vector<CubeSet>& vector, std::string& string) {
     }
 }
 
-void readFile(const char* filename, std::vector<std::vector<CubeSet>>& matrix) {
+void readFile(const char* filename, ParsedInput& matrix) {
     std::ifstream file(filename);
     std::string line;
 
@@ -72,7 +74,7 @@ void readFile(const char* filename, std::vector<std::vector<CubeSet>>& matrix) {
     }
 }
 
-int solvePart1(std::vector<std::vector<CubeSet>>& matrix) {
+int solvePart1(ParsedInput& matrix) {
     int sumOfIds = 0;
 
     for (int i = 0; i < matrix.size(); ++i) {
@@ -103,8 +105,12 @@ int solvePart1(std::vector<std::vector<CubeSet>>& matrix) {
     return sumOfIds;
 }
 
+int solvePart2(ParsedInput) {
+
+}
+
 int main() {
-    std::vector<std::vector<CubeSet>> matrix;
+    ParsedInput matrix;
 
     readFile(INPUT_PATH, matrix);
 
