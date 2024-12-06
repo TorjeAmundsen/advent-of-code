@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <unordered_map>
 
 #define INPUT_PATH "inputs/2.txt"
 
@@ -105,8 +106,26 @@ int solvePart1(ParsedInput& matrix) {
     return sumOfIds;
 }
 
-int solvePart2(ParsedInput) {
+int solvePart2(ParsedInput matrix) {
+    int powerSum = 0;
 
+    for (auto vec : matrix) {
+        std::unordered_map<char, int> map = {
+            {'r', 0},
+            {'g', 0},
+            {'b', 0},
+        };
+
+        for (auto set : vec) {
+            if (set.count > map[set.color]) {
+                map[set.color] = set.count;
+            }
+        }
+
+        powerSum += map['r'] * map['g'] * map['b'];
+    }
+
+    return powerSum;
 }
 
 int main() {
@@ -117,4 +136,8 @@ int main() {
     int part1Solution = solvePart1(matrix);
 
     std::cout << part1Solution << std::endl;
+
+    int part2Solution = solvePart2(matrix);
+
+    std::cout << part2Solution << std::endl;
 }
