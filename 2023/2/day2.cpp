@@ -14,13 +14,6 @@ typedef struct {
 
 typedef std::vector<std::vector<CubeSet>> ParsedInput;
 
-void printVector(std::vector<std::string>& vector) {
-    for (auto e : vector) {
-        std::cout << e;
-    }
-    std::cout << std::endl;
-}
-
 int isDigit(char c) {
     return c >= '0' && c <= '9';
 }
@@ -29,7 +22,7 @@ int twoDigitsToInt(char first, char second) {
     return ((first - '0') * 10) + second - '0';
 }
 
-int getCubeSetsFromHand(std::vector<CubeSet>& vector, std::string& string) {
+void getCubeSetsFromHand(std::vector<CubeSet>& vector, std::string& string) {
     for (int i = 0; i < string.size(); ++i) {
         if (isDigit(string[i])) {
             int count;
