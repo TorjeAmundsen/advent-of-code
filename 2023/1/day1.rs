@@ -2,50 +2,59 @@ use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
 
-const INPUT_PATH: &str = "inputs/2.txt";
+const INPUT_PATH: &str = "inputs/1.txt";
 
 fn main() {
-    let input = "one234five";
-    let part_1_solution = solve_part_1(&vec![input]);
+    let input = lines_to_string_vec(INPUT_PATH);
+    let part_1_solution = solve_part_1(&input);
 
-    println!("{}", part_1_solution);
+    println!("{part_1_solution}");
 }
 
-fn solve_part_1(vec: &Vec<&str>) -> u32 {
+fn solve_part_1(vec: &Vec<String>) -> u32 {
+    let mut output = 0;
+    for string in vec {
+        output += part1_line_number(string) as u32;
+    }
+
+    output
+}
+
+fn part1_line_number(string: &String) -> u8 {
     let mut left_num: u8 = 0;
     let mut right_num: u8 = 0;
 
-    for string in vec {
-        for c_num in string.as_bytes() {
-            if *c_num >= 48 && *c_num <= 57 {
-                left_num = *c_num;
-            }
+    for c in string.as_bytes() {
+        if c.is_ascii_digit() {
+            left_num = c - 48;
+            break;
         }
     }
 
-    for string in vec.iter().rev() {
-        for c_num in string.as_bytes() {
-            if *c_num >= 48 && *c_num <= 57 {
-                right_num = *c_num;
-            }
+    let reversed = string.chars().rev().collect::<String>();
+    for c in reversed.as_bytes() {
+        if c.is_ascii_digit() {
+            right_num = *c - 48;
+            break;
         }
     }
 
-    <u8 as Into<u32>>::into(right_num) + (<u8 as Into<u32>>::into(left_num) * 10)
+    (left_num * 10) + right_num
 }
 
-/* fn lines_to_string_vec(path: &str) -> Vec<&str> {
+fn lines_to_string_vec(path: &str) -> Vec<String> {
     if let Ok(lines) = read_lines(path) {
-        let mut vec: Vec<&str> = vec![];
+        let mut vec: Vec<String> = vec![];
 
         for line in lines.flatten() {
-            vec.push(line.as_str());
+            vec.push(line);
         }
 
         return vec;
     }
+
     vec![]
-} */
+}
 
 fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
 where
