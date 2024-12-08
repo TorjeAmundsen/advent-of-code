@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <climits>
 
 #define INPUT_PATH "inputs/5.txt"
 
@@ -23,7 +24,7 @@ typedef struct {
 } ParsedInput;
 
 std::string getMapKey(std::string title) {    
-    size_t startIndex = title.find("to-") + 1;
+    size_t startIndex = title.find("to-") + 3;
     size_t endIndex = title.find(' ', startIndex);
 
     size_t len = endIndex - startIndex;
@@ -47,28 +48,26 @@ void parseInput(const char* filename, ParsedInput& parsedInput) {
         std::stringstream seedStream(line.substr(startIndex, line.size() - startIndex));
         std::string seed;
         while (getline(seedStream, seed, ' ')) {
-            parsedInput.seeds.push_back(stol(seed));
+            parsedInput.seeds.push_back(stoll(seed));
         }
     }
 
-    AlmanacCategory* currentMapVector;
+    std::string currentMapKey;
 
     while (getline(file, line)) {
         if (line.size() == 0) continue;
 
         if (!isDigit(line[0])) {
-            std::string mapKey = getMapKey(line);
-            AlmanacCategory mapVector;
-            parsedInput.almanac[mapKey] = mapVector;
-            currentMapVector = &mapVector;
+            currentMapKey = getMapKey(line);
         } else {
+            AlmanacCategory mapVector;
             std::stringstream stream(line);
             std::string numString;
 
             std::vector<long long> nums;
 
             while (getline(stream, numString, ' ')) {
-                nums.push_back(stol(numString));
+                nums.push_back(stoll(numString));
             }
 
             MapEntry entry = {
@@ -77,7 +76,9 @@ void parseInput(const char* filename, ParsedInput& parsedInput) {
                 nums[2],
             };
 
-            currentMapVector->push_back(entry);
+            parsedInput.almanac[currentMapKey].push_back(entry);
+
+            std::cout << "Added entry to almanac[\"" << currentMapKey << "\"]\n";
         }
     }
 }
@@ -98,15 +99,15 @@ long long solvePart1(ParsedInput& parsedInput) {
         "location",
     };
 
-    for (auto key : keys) {
-        std::cout << key << " map:\n";
+    int currentKeyIndex = 0;
 
-        std::cout << (parsedInput.almanac.find(key) != parsedInput.almanac.end()) << std::endl;
-
-        for (auto entry : parsedInput.almanac[key]) {
-            std::cout << "dest start: " << entry.destinationStart;
-            std::cout << "source start: " << entry.sourceStart;
-            std::cout << "range: " << entry.range << std::endl;;
+    for (auto seed : parsedInput.seeds) {
+        int currentNum = seed;
+        for (auto entry : parsedInput.almanac[keys[currentKeyIndex]]) {
+            if (seed >= entry.sourceStart && seed < entry.sourceStart + entry.range) {
+                long long offset = entry.destinationStart - entry.sourceStart;
+                currentNum = seed + offset;
+            }
         }
     }
 
