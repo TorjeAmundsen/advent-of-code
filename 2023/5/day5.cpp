@@ -77,8 +77,6 @@ void parseInput(const char* filename, ParsedInput& parsedInput) {
             };
 
             parsedInput.almanac[currentMapKey].push_back(entry);
-
-            std::cout << "Added entry to almanac[\"" << currentMapKey << "\"]\n";
         }
     }
 }
@@ -86,6 +84,23 @@ void parseInput(const char* filename, ParsedInput& parsedInput) {
 // optimization: make map of seed values to directly correspond to the almanac entries
 // rather than checking for a range every time
 // collapse the range beforehand based on the seed inputs to save iterations
+
+// i may be speaking by means of my own rectum here lol
+
+long long findMappedLocation(Almanac& almanac, std::vector<std::string>& keys, int keyIndex, long long currentVal) {
+    if (keyIndex >= keys.size()) return currentVal;
+
+    for (auto entry : almanac[keys[keyIndex]]) {
+        if (currentVal >= entry.sourceStart && currentVal < entry.sourceStart + entry.range) {
+            long long offset = entry.destinationStart - entry.sourceStart;
+            long long newVal = currentVal + offset;
+
+            return findMappedLocation(almanac, keys, keyIndex + 1, newVal);
+        }
+    }
+
+    return findMappedLocation(almanac, keys, keyIndex + 1, currentVal);
+}
 
 long long solvePart1(ParsedInput& parsedInput) {
     long long lowestLocationNumber = LLONG_MAX;
@@ -99,15 +114,11 @@ long long solvePart1(ParsedInput& parsedInput) {
         "location",
     };
 
-    int currentKeyIndex = 0;
-
     for (auto seed : parsedInput.seeds) {
-        int currentNum = seed;
-        for (auto entry : parsedInput.almanac[keys[currentKeyIndex]]) {
-            if (seed >= entry.sourceStart && seed < entry.sourceStart + entry.range) {
-                long long offset = entry.destinationStart - entry.sourceStart;
-                currentNum = seed + offset;
-            }
+        long long mappedLocation = findMappedLocation(parsedInput.almanac, keys, 0, seed);
+
+        if (mappedLocation < lowestLocationNumber) {
+            lowestLocationNumber = mappedLocation;
         }
     }
 
@@ -120,4 +131,6 @@ int main() {
     parseInput(INPUT_PATH, parsedInput);
 
     auto test = solvePart1(parsedInput);
+
+    std::cout << test << std::endl;
 }
