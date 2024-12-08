@@ -130,7 +130,7 @@ int main() {
     
     parseInput(INPUT_PATH, parsedInput);
 
-    auto test = solvePart1(parsedInput);
+    long long part1Solution = solvePart1(parsedInput);
 
-    std::cout << test << std::endl;
+    std::cout << part1Solution << std::endl;
 }
