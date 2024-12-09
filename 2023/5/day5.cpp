@@ -125,6 +125,48 @@ long long solvePart1(ParsedInput& parsedInput) {
     return lowestLocationNumber;
 }
 
+std::vector<std::pair<long long, long long>> getSeedRanges(std::vector<long long> seeds) {
+    std::vector<std::pair<long long, long long>> pairVector;
+
+    for (int i = 0; i < seeds.size(); i += 2) {
+        std::pair<long long, long long> pair(seeds[i], seeds[i + 1]);
+
+        pairVector.push_back(pair);
+    }
+
+    return pairVector;
+}
+
+long long solvePart2(ParsedInput& parsedInput) {
+    long long lowestLocationNumber = LLONG_MAX;
+    std::vector<std::string> keys = {
+        "soil",
+        "fertilizer",
+        "water",
+        "light",
+        "temperature",
+        "humidity",
+        "location",
+    };
+
+    auto seedRanges = getSeedRanges(parsedInput.seeds);
+    int scannedPairs = 0;
+    for (auto pair : seedRanges) {
+        for (long long seed = pair.first; seed < pair.first + pair.second; ++seed) {
+            long long mappedLocation = findMappedLocation(parsedInput.almanac, keys, 0, seed);
+
+            if (mappedLocation < lowestLocationNumber) {
+                lowestLocationNumber = mappedLocation;
+            }
+        }
+
+        ++scannedPairs;
+        std::cout << "Scanned pair range #" << scannedPairs << "...\n";
+    }
+
+    return lowestLocationNumber;
+}
+
 int main() {
     ParsedInput parsedInput;
     
@@ -133,4 +175,8 @@ int main() {
     long long part1Solution = solvePart1(parsedInput);
 
     std::cout << part1Solution << std::endl;
+
+    long long part2Solution = solvePart2(parsedInput);
+
+    std::cout << part2Solution << std::endl;
 }
