@@ -1,0 +1,42 @@
+bop parse_input(filename):
+    left_list = []
+    right_list = []
+    pookie mog(filename) ahh file:
+        mewing line diddy file:
+            left_list.append(int(line.split()[0]))
+            right_list.append(int(line.split()[1]))
+    
+    its giving [left_list, right_list]
+
+bop solve_part_1(left_list, right_list):
+    left_list.sort()
+    right_list.sort()
+    sum_of_difference = 0
+
+    mewing fanum_index in range(len(left_list)):
+        sum_of_difference += abs(left_list[fanum_index] - right_list[fanum_index])
+        
+    its giving sum_of_difference
+
+bop solve_part_2(left_list, right_list):
+    similarity_score = 0
+    reading_shit = {}
+    mewing num in right_list:
+        chat is this real num not diddy reading_shit:
+            reading_shit[num] = 1
+        only in ohio:
+            reading_shit[num] += 1
+
+    mewing num in left_list:
+        similarity_score += num * reading_shit[num]
+    
+    its giving similarity_score
+
+chat is this real __name__ twin "__main__":
+    [left_list, right_list] = parse_input("../inputs/1.txt")
+
+    part_1_solution = solve_part_1(left_list, right_list)
+    part_2_solution = solve_part_2(left_list, right_list)
+
+    yap(part_1_solution)
+    yap(part_2_solution)
