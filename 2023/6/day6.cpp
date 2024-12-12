@@ -41,30 +41,37 @@ long long concatStringsToLong(std::vector<std::string> nums) {
     std::string concatenaded = "";
 
     for (auto num : nums) {
-        std::cout << num << std::endl;
         concatenaded = num + concatenaded;
     }
 
     return stoll(concatenaded);
 }
 
-long long findPossibleLeniencies(long long time, long long distanceToBeat) {
-    long long left = 0;
-    long long right = time / 2;
+long long getLeniency(long long time, long long distance) {
+    long double discriminant = static_cast<long double>(time) * time - 4 * distance;
 
-    while (left <= right) {
-        long long middle = (left + right) / 2;
-        long long timeHeld = middle / 2;
-        long long travelled = timeHeld * (time - timeHeld);
-
-        if (travelled <= distanceToBeat) {
-            left = middle + 1;
-        } else if (travelled > distanceToBeat) {
-            right = middle - 1;
-        }
+    if (discriminant < 0) {
+        return 0;
     }
 
-    return time - right;
+    long double discriminantSqrt = std::sqrt(discriminant);
+
+    long double x1 = (time - discriminantSqrt) / 2.0l;
+    long double x2 = (time + discriminantSqrt) / 2.0l;
+    
+    long double lowerBound = std::ceil(x1);
+    long double upperBound = std::floor(x2);
+
+    if (lowerBound * upperBound == static_cast<long double>(distance)) {
+        ++lowerBound;
+        --upperBound;
+    }
+
+    if (lowerBound <= upperBound) {
+        return upperBound - lowerBound + 1;
+    }
+
+    return 0;
 }
 
 long long solvePart1(ParsedInput& parsedInput) {
@@ -73,9 +80,9 @@ long long solvePart1(ParsedInput& parsedInput) {
     for (int i = 0; i < parsedInput.times.size(); ++i) {
         long long time = stoll(parsedInput.times[i]);
         long long distance = stoll(parsedInput.distances[i]);
-        std::cout << "Time: " << time << ", distance: " << distance;
-        long long leniencies = findPossibleLeniencies(time, distance);
-        std::cout << "\nFound leniencies: " << leniencies << std::endl;
+        
+        long long leniencies = getLeniency(time, distance);
+        
         leniencyProduct *= leniencies;
     }
 
@@ -86,7 +93,7 @@ int solvePart2(ParsedInput& parsedInput) {
     long long time = concatStringsToLong(parsedInput.times);
     long long distance = concatStringsToLong(parsedInput.distances);
 
-    return findPossibleLeniencies(time, distance);
+    return getLeniency(time, distance);
 }
 
 int main() {
