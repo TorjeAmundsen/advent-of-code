@@ -1,6 +1,54 @@
 #include "helpers.h"
 
 namespace aoc {
+    void print(std::vector<std::string>& input) {
+        for (auto line : input) {
+            std::cout << line << std::endl;
+        }
+    }
+
+    void print(std::vector<int32_t>& input) {
+        for (auto num : input) {
+            std::cout << num << std::endl;
+        }
+    }
+
+    void print(matrix& input) {
+        for (auto row : input) {
+            for (auto num : row) {
+                std::cout << num << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    void print(umatrix& input) {
+        for (auto row : input) {
+            for (auto num : row) {
+                std::cout << num << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    void print(lmatrix& input) {
+        for (auto row : input) {
+            for (auto num : row) {
+                std::cout << num << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    void print(ulmatrix& input) {
+        for (auto row : input) {
+            for (auto num : row) {
+                std::cout << num << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+
     std::vector<std::string> get_input(const char* filename) {
         std::vector<std::string> output;
 
@@ -47,7 +95,7 @@ namespace aoc {
 
             while (strptr < input[i].size()) {
                 char cur = input[i][strptr];
-                if (cur >= '0' && cur <= '9') {
+                if (is_digit(cur)) {
                     number_as_str.push_back(cur);
                 } else {
                     if (number_as_str.size() > 0) {
@@ -57,11 +105,18 @@ namespace aoc {
                 }
                 ++strptr;
             }
+            
+            if (number_as_str.size() > 0) {
+                nums_in_line.push_back(std::stoi(number_as_str));
+                number_as_str.clear();
+            }
+
             output.push_back(nums_in_line);
         }
 
         return output;
     }
+    
     std::vector<std::vector<uint32_t>> get_u32s(std::vector<std::string>& input) {
         std::vector<std::vector<uint32_t>> output;
 
@@ -156,6 +211,33 @@ namespace aoc {
         }
 
         return map;
+    }
+
+    std::vector<std::string> rxfilter(std::string& input, const char* regex_expression) {
+        std::vector<std::string> output;
+        
+        std::regex regex(regex_expression);
+
+        auto matched_begin = std::sregex_iterator(input.begin(), input.end(), regex);
+        auto matched_end = std::sregex_iterator();
+
+        for (auto i = matched_begin; i != matched_end; ++i) {
+            std::string match = (*i).str();
+
+            output.push_back(match);
+        }
+
+        return output;
+    }
+
+    std::vector<std::vector<std::string>> rxfilter(std::vector<std::string>& input_vector, const char* regex_expression) {
+        std::vector<std::vector<std::string>> output;
+
+        for (auto line : input_vector) {
+            output.push_back(rxfilter(line, regex_expression));
+        }
+
+        return output;
     }
 
 }

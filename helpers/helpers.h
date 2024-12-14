@@ -10,12 +10,20 @@
 #include <iostream>
 #include <set>
 #include <unordered_map>
+#include <regex>
 
 namespace aoc {
     typedef std::vector<std::vector<int32_t>> matrix;
     typedef std::vector<std::vector<uint32_t>> umatrix;
     typedef std::vector<std::vector<int64_t>> lmatrix;
     typedef std::vector<std::vector<uint64_t>> ulmatrix;
+
+    void print(std::vector<std::string>& input);
+    void print(std::vector<int32_t>& input);
+    void print(matrix& input);
+    void print(umatrix& input);
+    void print(lmatrix& input);
+    void print(ulmatrix& input);
 
     std::vector<std::string> get_input(const char* filename);
 
@@ -32,6 +40,9 @@ namespace aoc {
     std::unordered_map<int32_t, int32_t> count(std::vector<int32_t>& nums);
     std::unordered_map<char, int32_t> count(std::string& input);
     std::unordered_map<std::string, int32_t> count(std::vector<std::string>& words);
+
+    std::vector<std::string> rxfilter(std::string& input, const char* regex_expression);
+    std::vector<std::vector<std::string>> rxfilter(std::vector<std::string>& input_vector, const char* regex_expression);
 }
 
 #endif
