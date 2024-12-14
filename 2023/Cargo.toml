@@ -5,38 +5,38 @@ edition = "2021"
 
 [[bin]]
 name = "day1"
-path = "1/day1.rs"
+path = "01/day1.rs"
 
 [[bin]]
 name = "day2"
-path = "2/day2.rs"
+path = "02/day2.rs"
 
 [[bin]]
 name = "day3"
-path = "3/day3.rs"
+path = "03/day3.rs"
 
 [[bin]]
 name = "day4"
-path = "4/day4.rs"
+path = "04/day4.rs"
 
 [[bin]]
 name = "day5"
-path = "5/day5.rs"
+path = "05/day5.rs"
 
 [[bin]]
 name = "day6"
-path = "6/day6.rs"
+path = "06/day6.rs"
 
 [[bin]]
 name = "day7"
-path = "7/day7.rs"
+path = "07/day7.rs"
 
 [[bin]]
 name = "day8"
-path = "8/day8.rs"
+path = "08/day8.rs"
 
 [[bin]]
 name = "day9"
-path = "9/day9.rs"
+path = "09/day9.rs"
 
 [dependencies]
