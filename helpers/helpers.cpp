@@ -159,7 +159,34 @@ namespace aoc {
                     number_as_str.push_back(cur);
                 } else {
                     if (number_as_str.size() > 0) {
-                        nums_in_line.push_back(std::stoi(number_as_str));
+                        nums_in_line.push_back(std::stoll(number_as_str));
+                        number_as_str.clear();
+                    }
+                }
+                ++strptr;
+            }
+            output.push_back(nums_in_line);
+        }
+
+        return output;
+    }
+
+    std::vector<std::vector<uint64_t>> get_u64s(std::vector<std::string>& input) {
+        std::vector<std::vector<uint64_t>> output;
+
+        for (uint64_t i = 0; i < input.size(); ++i) {
+            std::vector<uint64_t> nums_in_line;
+            std::string number_as_str;
+
+            int32_t strptr = 0;
+
+            while (strptr < input[i].size()) {
+                char cur = input[i][strptr];
+                if (cur >= '0' && cur <= '9') {
+                    number_as_str.push_back(cur);
+                } else {
+                    if (number_as_str.size() > 0) {
+                        nums_in_line.push_back(std::stoull(number_as_str));
                         number_as_str.clear();
                     }
                 }
@@ -213,6 +240,57 @@ namespace aoc {
         return map;
     }
 
+    std::vector<int32_t> get_digits(std::string& input) {
+        std::vector<int32_t> output;
+
+        for (auto c : input) {
+            if (is_digit(c)) {
+                output.push_back(c - '0');
+            }
+        }
+
+        return output;
+    }
+
+    std::vector<int32_t> get_digits(std::vector<std::string>& input) {
+        std::vector<int32_t> output;
+        
+        for (auto line : input) {
+            for (auto c : line) {
+                if (is_digit(c)) {
+                    output.push_back(c - '0');
+                }
+            }
+        }
+
+        return output;
+    }
+    
+
+    int32_t count(std::string& input, const char char_to_count) {
+        int32_t output = 0;
+        for (auto current : input) {
+            if (current == char_to_count) {
+                ++output;
+            }
+        }
+
+        return output;
+    }
+
+    int32_t count(std::vector<std::string>& input, const char char_to_count) {
+        int32_t output = 0;
+        for (auto line : input) {
+            for (auto current : line) {
+                if (current == char_to_count) {
+                    ++output;
+                }
+            }
+        }
+
+        return output;
+    }
+
     std::vector<std::string> rxfilter(std::string& input, const char* regex_expression) {
         std::vector<std::string> output;
         
@@ -239,6 +317,5 @@ namespace aoc {
 
         return output;
     }
-
 }
 

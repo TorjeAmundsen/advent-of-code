@@ -37,9 +37,14 @@ namespace aoc {
     std::vector<std::vector<int64_t>> get_i64s(std::vector<std::string>& input);
     std::vector<std::vector<uint64_t>> get_u64s(std::vector<std::string>& input);
 
+    std::vector<int32_t> get_digits(std::string& input);
+    std::vector<int32_t> get_digits(std::vector<std::string>& input);
+
     std::unordered_map<int32_t, int32_t> count(std::vector<int32_t>& nums);
     std::unordered_map<char, int32_t> count(std::string& input);
     std::unordered_map<std::string, int32_t> count(std::vector<std::string>& words);
+    int32_t count (std::string& input, const char char_to_count);
+    int32_t count (std::vector<std::string>& input, const char char_to_count);
 
     std::vector<std::string> rxfilter(std::string& input, const char* regex_expression);
     std::vector<std::vector<std::string>> rxfilter(std::vector<std::string>& input_vector, const char* regex_expression);
