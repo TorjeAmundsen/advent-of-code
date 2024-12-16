@@ -13,6 +13,12 @@ namespace aoc {
         }
     }
 
+    void print(std::vector<uint32_t>& input) {
+        for (auto num : input) {
+            std::cout << num << std::endl;
+        }
+    }
+
     void print(matrix& input) {
         for (auto row : input) {
             for (auto num : row) {
@@ -82,6 +88,7 @@ namespace aoc {
                 return i;
             }
         }
+        return -1;
     }
 
     std::vector<std::vector<int32_t>> get_i32s(std::vector<std::string>& input) {
@@ -128,16 +135,22 @@ namespace aoc {
 
             while (strptr < input[i].size()) {
                 char cur = input[i][strptr];
-                if (cur >= '0' && cur <= '9') {
+                if (is_digit(cur)) {
                     number_as_str.push_back(cur);
                 } else {
                     if (number_as_str.size() > 0) {
-                        nums_in_line.push_back(std::stoi(number_as_str));
+                        nums_in_line.push_back(std::stoul(number_as_str));
                         number_as_str.clear();
                     }
                 }
                 ++strptr;
             }
+
+            if (number_as_str.size() > 0) {
+                nums_in_line.push_back(std::stoul(number_as_str));
+                number_as_str.clear();
+            }
+
             output.push_back(nums_in_line);
         }
 
@@ -155,7 +168,7 @@ namespace aoc {
 
             while (strptr < input[i].size()) {
                 char cur = input[i][strptr];
-                if (cur >= '0' && cur <= '9') {
+                if (is_digit(cur)) {
                     number_as_str.push_back(cur);
                 } else {
                     if (number_as_str.size() > 0) {
@@ -165,6 +178,12 @@ namespace aoc {
                 }
                 ++strptr;
             }
+            
+            if (number_as_str.size() > 0) {
+                nums_in_line.push_back(std::stoll(number_as_str));
+                number_as_str.clear();
+            }
+
             output.push_back(nums_in_line);
         }
 
@@ -182,7 +201,7 @@ namespace aoc {
 
             while (strptr < input[i].size()) {
                 char cur = input[i][strptr];
-                if (cur >= '0' && cur <= '9') {
+                if (is_digit(cur)) {
                     number_as_str.push_back(cur);
                 } else {
                     if (number_as_str.size() > 0) {
@@ -192,6 +211,12 @@ namespace aoc {
                 }
                 ++strptr;
             }
+
+            if (number_as_str.size() > 0) {
+                nums_in_line.push_back(std::stoull(number_as_str));
+                number_as_str.clear();
+            }
+
             output.push_back(nums_in_line);
         }
 
@@ -203,7 +228,7 @@ namespace aoc {
 
         for (auto num : nums) {
             if (map.find(num) == map.end()) {
-                map[num] == 1;
+                map[num] = 1;
             } else {
                 map[num] += 1;
             }
@@ -217,7 +242,7 @@ namespace aoc {
 
         for (auto ch : input) {
             if (map.find(ch) == map.end()) {
-                map[ch] == 1;
+                map[ch] = 1;
             } else {
                 map[ch] += 1;
             }
@@ -231,9 +256,9 @@ namespace aoc {
 
         for (auto word : words) {
             if (map.find(word) == map.end()) {
-                map[word] == 1;
+                map[word] = 1;
             } else {
-
+                map[word] += 1;
             }
         }
 
