@@ -55,6 +55,20 @@ namespace aoc {
         }
     }
 
+    template <typename T> std::unordered_map<T, int32_t> count_template_test (std::vector<T>& input) {
+        std::unordered_map<T, int32_t> map;
+
+        for (T item : input) {
+            if (map.find(item) == map.end()) {
+                map[item] = 1;
+            } else {
+                map[item] += 1;
+            }
+        }
+
+        return map;
+    }
+
     std::vector<std::string> get_input(const char* filename) {
         std::vector<std::string> output;
 

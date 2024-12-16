@@ -27,7 +27,7 @@ namespace aoc {
     void print(umatrix& input);
     void print(lmatrix& input);
     void print(ulmatrix& input);
-
+    
     std::vector<std::string> get_input(const char* filename);
 
     int32_t is_digit(char ch);
