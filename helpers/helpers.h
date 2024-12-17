@@ -11,6 +11,8 @@
 #include <set>
 #include <unordered_map>
 #include <regex>
+#include <cstdint>
+#include <cmath>
 
 namespace aoc {
     typedef std::vector<std::vector<int32_t>> matrix;
@@ -20,11 +22,12 @@ namespace aoc {
 
     void print(std::vector<std::string>& input);
     void print(std::vector<int32_t>& input);
+    void print(std::vector<uint32_t>& input);
     void print(matrix& input);
     void print(umatrix& input);
     void print(lmatrix& input);
     void print(ulmatrix& input);
-
+    
     std::vector<std::string> get_input(const char* filename);
 
     int32_t is_digit(char ch);
