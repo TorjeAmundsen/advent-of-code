@@ -39,4 +39,7 @@ path = "08/day8.rs"
 name = "day9"
 path = "09/day9.rs"
 
+[lib]
+path = "shared/lib.rs"
+
 [dependencies]
