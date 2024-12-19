@@ -1,3 +1,5 @@
+use twenty23::input;
+
 const INPUT: &str = "inputs/1.txt";
 
 const NUMBERS: [&str; 10] = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
@@ -5,7 +7,7 @@ const NUMBERS: [&str; 10] = ["zero", "one", "two", "three", "four", "five", "six
 const NUMBERS_REV: [&str; 10] = ["orez", "eno", "owt", "eerht", "ruof", "evif", "xis", "neves", "thgie", "enin"];
 
 fn main() {
-    let input: String = std::fs::read_to_string(INPUT).unwrap();
+    let input: String = input::as_string(INPUT).unwrap();
 
     let res: i64 = input.lines()
         .map(|line| handle_line(line, false))
