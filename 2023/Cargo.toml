@@ -8,6 +8,10 @@ name = "day1"
 path = "01/day1.rs"
 
 [[bin]]
+name = "day1emil"
+path = "01/day1emil.rs"
+
+[[bin]]
 name = "day2"
 path = "02/day2.rs"
 
