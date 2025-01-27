@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <stdint.h>
 
 #define INPUT_PATH "inputs/5.txt"
 

@@ -55,20 +55,6 @@ namespace aoc {
         }
     }
 
-    template <typename T> std::unordered_map<T, int32_t> count_template_test (std::vector<T>& input) {
-        std::unordered_map<T, int32_t> map;
-
-        for (T item : input) {
-            if (map.find(item) == map.end()) {
-                map[item] = 1;
-            } else {
-                map[item] += 1;
-            }
-        }
-
-        return map;
-    }
-
     std::vector<std::string> get_input(const char* filename) {
         std::vector<std::string> output;
 
@@ -355,6 +341,63 @@ namespace aoc {
         }
 
         return output;
+    }
+
+    void __merge(std::vector<int32_t>& input, int32_t left, int32_t middle, int32_t right) {
+        int32_t n1 = middle - left + 1;
+        int32_t n2 = right - middle;
+        
+        std::vector<int32_t> left_vector(n1);
+        std::vector<int32_t> right_vector(n2);
+
+        for (int32_t i = 0; i < n1; ++i) {
+            left_vector[i] = input[left + 1];
+        }
+
+        for (int32_t i = 0; i < n2; ++i) {
+            right_vector[i] = input[middle + i + 1];
+        }
+
+        int32_t i = 0;
+        int32_t j = 0;
+        int32_t k = left;
+
+        while (i < n1 && j < n2) {
+            if (left_vector[i] <= right_vector[j]) {
+                input[k] = left_vector[i];
+                ++i;
+            } else {
+                input[k] = right_vector[j];
+                ++j;
+            }
+
+            ++k;
+        }
+
+        while (i < n1) {
+            input[k] = left_vector[i];
+            ++i;
+            ++k;
+        }
+
+        while (j < n2) {
+            input[k] = right_vector[j];
+            ++j;
+            ++k;
+        }
+    }
+
+    void merge_sort(std::vector<int32_t>& input, int32_t left, int32_t right) {
+        if (left >= right) {
+            return;
+        }
+
+        int32_t mid = left + (right - left) / 2;
+
+        merge_sort(input, left, mid);
+        merge_sort(input, mid + 1, right);
+
+        __merge(input, left, mid, right);
     }
 }
 

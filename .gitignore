@@ -3,5 +3,5 @@
 *.pdb
 .vscode/
 **/target/
-*test*
-*resolve*
+**test**
+**resolve**
