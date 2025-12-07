@@ -1,7 +1,6 @@
 use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
-use std::u32::MAX;
 
 const INPUT_PATH: &str = "inputs/2.txt";
 
