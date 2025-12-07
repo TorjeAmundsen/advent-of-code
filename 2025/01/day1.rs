@@ -39,7 +39,7 @@ fn rotate(from: i16, rotate_by: i16) -> i16 {
     }
 }
 
-fn solve_part_1(input: Vec<i16>) -> u32 {
+fn solve_part_2(input: Vec<i16>) -> u32 {
     let mut wheel: i16 = 50;
     let mut ans: u32 = 0;
 
@@ -66,7 +66,7 @@ fn solve_part_1(input: Vec<i16>) -> u32 {
 
 fn main() {
     let input = get_rotation_values(INPUT_PATH);
-    let part_1_ans = solve_part_1(input);
+    let part_1_ans = solve_part_2(input);
 
     println!("{part_1_ans}")
 }
